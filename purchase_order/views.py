@@ -10,10 +10,11 @@ from django.db.models import Q
 
 class PurchaseOrderAPI(APIView):
     def get(self, request):
+        print("get methodddd")
         vendor_id = request.query_params.get('vendor_id')
-        query = Q() if vendor_id else Q(vendor_id=vendor_id)
+        query = Q(vendor_id=vendor_id) if vendor_id else Q()
         purchase_orders = PurchaseOrder.objects.filter(query)
-        
+        print('purchase_orders', purchase_orders, query, vendor_id)
         serializer = PurchaseOrderSerializer(purchase_orders, many=True)
         return Response(serializer.data)
 

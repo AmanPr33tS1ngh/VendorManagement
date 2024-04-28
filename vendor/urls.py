@@ -1,5 +1,6 @@
 from django.urls import path
-from .views import VendorAPI, VendorPerformanceAPIView
+from .views import VendorAPI
+from history_performance.views import VendorPerformanceAPIView
 
 urlpatterns = [
     path('', VendorAPI.as_view(), name='vendor-list'),

@@ -1,8 +1,8 @@
 from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.views import APIView
-from .models import Vendor, HistoricalPerformance
-from .serializers import VendorSerializer, HistoricalPerformanceSerializer
+from .models import Vendor
+from .serializers import VendorSerializer
 
 class VendorAPI(APIView):
     def get(self, request, vendor_id=None):
@@ -46,15 +46,3 @@ class VendorAPI(APIView):
 
         vendor.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
-
-
-class VendorPerformanceAPIView(APIView):
-    def get(self, request, vendor_id):
-        try:
-            vendor = Vendor.objects.get(pk=vendor_id)
-        except Vendor.DoesNotExist:
-            return Response({"message": "Vendor not found"}, status=status.HTTP_404_NOT_FOUND)
-
-        performances = HistoricalPerformance.objects.filter(vendor=vendor)
-        serializer = HistoricalPerformanceSerializer(performances, many=True)
-        return Response(serializer.data)

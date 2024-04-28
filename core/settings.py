@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     # apps
     "vendor",
     "purchase_order",
+    "history_performance",
 ]
 
 MIDDLEWARE = [
